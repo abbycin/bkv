@@ -28,10 +28,10 @@ int main(int argc, char *argv[])
 
 	db->put("alpha", "alpah");
 	db->put("beta", "beta");
-	db->put("garma", "garma");
+	db->put("gamma", "gamma");
 	db->put("delta", "delta");
 
-	auto it = db->range("garma", "zeta");
+	auto it = db->range("gamma", "zeta");
 
 	while (it) {
 		auto k = it.key();
@@ -45,9 +45,7 @@ int main(int argc, char *argv[])
 	std::string s {};
 
 	size_t n = 20000;
-	s.reserve(n);
-	for (size_t i = 0; i < n; ++i)
-		s.push_back('a');
+	s.resize(n, 'a');
 
 	for (size_t i = 0; i < n; ++i) {
 		View v { s.data(), i + 1 };

@@ -5,6 +5,7 @@
  * Create Time: 2024-06-25 10:33:44
  */
 
+#include "meta_types.h"
 #ifndef BKV_1719282824_H_
 
 #include "bptree.h"
@@ -40,12 +41,12 @@ public:
 
 	bool put(View key, View val)
 	{
-		if (key.size() > k_max_kv_sz || val.size() > k_max_kv_sz) {
-			debug("key or val too large expect key size < "
-			      "%lu and "
-			      "val size < %lu",
-			      k_max_kv_sz,
-			      k_max_kv_sz);
+		if (key.size() == 0 || key.size() > k_max_kv_sz) {
+			debug("key size out of range [1, %lu]", k_max_kv_sz);
+			return false;
+		}
+		if (val.size() == 0 || val.size() > k_max_kv_sz) {
+			debug("val size out of range [1, %lu]", k_max_kv_sz);
 			return false;
 		}
 		return tree_->put(key, val);
